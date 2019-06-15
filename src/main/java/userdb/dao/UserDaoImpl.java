@@ -1,0 +1,66 @@
+package userdb.dao;
+
+import userdb.model.User;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.List;
+
+@Repository
+@Transactional
+public class UserDaoImpl implements UserDAO{
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    public List<User> getUsers() {
+        return entityManager.createQuery("select u from User u", User.class).getResultList();
+    }
+
+    @Override
+    public void saveUser(User user) {
+        User persistUser = findByUsername(user.getUsername());
+        if (persistUser == null) {
+            entityManager.persist(user);
+        } else {
+            persistUser.updateUser(user);
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public User getUser(int theId) {
+        TypedQuery<User> query = entityManager.createQuery("select u from User u where u.ID=:ID", User.class);
+        return query.setParameter("ID",theId)
+                    .getResultList()
+                    .stream()
+                    .findAny()
+                    .orElse(null);
+    }
+
+    @Override
+    public void deleteUser(int theId) {
+        User user = entityManager.find(User.class,theId);
+        entityManager.remove(user);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        User persistUser = findByUsername(user.getUsername());
+        persistUser.updateUser(user);
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return entityManager.createQuery("select u from User u where u.username=:Username", User.class)
+                            .setParameter("Username",username)
+                            .getResultList()
+                            .stream()
+                            .findAny()
+                            .orElse(null);
+    }
+}

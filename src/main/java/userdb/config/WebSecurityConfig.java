@@ -52,9 +52,10 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .successHandler(successHandler)
-                .failureHandler(failureHandler)
+                //.failureHandler(failureHandler)
                 .and()
                 .logout()
-                .logoutSuccessUrl("/login");
+                .logoutSuccessUrl("/login")
+                .and().exceptionHandling().accessDeniedPage("/error");
     }
 }

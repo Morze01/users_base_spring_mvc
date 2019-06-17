@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import userdb.service.RoleService;
 import userdb.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -88,6 +90,12 @@ public class UserController {
         userService.saveUser(newUser);
 
         return "redirect:/login";
+    }
+
+    @GetMapping("/error")
+    public String errorForm(HttpServletRequest request, HttpServletResponse response) {
+
+        return "error";
     }
 
 }

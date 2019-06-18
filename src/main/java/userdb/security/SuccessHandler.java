@@ -17,10 +17,10 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         Set<String> roleRet = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 
-        if (roleRet.contains("user")) {
+        if (roleRet.contains("ROLE_USER")) {
             httpServletResponse.sendRedirect("/home");
         }
-        else if (roleRet.contains("admin")) {
+        else if (roleRet.contains("ROLE_ADMIN")) {
             httpServletResponse.sendRedirect("/list");
         }
 

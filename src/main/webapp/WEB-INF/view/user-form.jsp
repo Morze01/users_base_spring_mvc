@@ -47,13 +47,16 @@
                     <div class="form-group">
                         <label for="role" class="col-md-3 control-label">Role</label>
                         <div class="col-md-9">
-                            <%--<select path="role" id="role" cssClass="form-control" />--%>
-                            <%--<option>user</option><option>admin</option>--%>
-                            <%--</select>--%>
-                            <%--<form:input path="roleSet" cssClass="form-control" />--%>
+
+                                    <%--<form:input path="role" cssClass="form-control" >--%>
+                                        <%--<input type="checkbox" name="vehicle1" value="Bike"> I have a bike<br>--%>
+                                        <%--<input type="checkbox" name="vehicle2" value="Car"> I have a car--%>
+                                    <%--</form:input>--%>
+
+
                                 <select path="role" class="form-control" id="role" rows="2" name="role">
-                                    <option>user</option>
-                                    <option>admin</option>
+                                    <option value="ROLE_USER">user</option>
+                                    <option value="ROLE_ADMIN">admin</option>
                                 </select>
                         </div>
                     </div>

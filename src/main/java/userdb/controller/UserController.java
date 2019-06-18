@@ -16,7 +16,6 @@ import userdb.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -46,13 +45,25 @@ public class UserController {
 
     @PostMapping("/saveUser")
     public String saveUser(@ModelAttribute("user") User theUser,
-//                           @RequestParam("username") String username,
+                           @RequestParam("username") String username,
                            @RequestParam("password") String password,
-                           @RequestParam("role") String role) {
-        Role userRole = roleService.findRoleByName(role);
-        theUser.setPassword(passwordEncoder.encode(password));
-        theUser.addRoleToUser(userRole);
-        userService.saveUser(theUser);
+                           @RequestParam("role") String role,
+                           @RequestParam("id") String id) {
+
+        //Set<Role> userRoleSet = Collections.singleton(roleService.findRoleByName(role));
+        Set<Role> userRoleSet = roleService.getRolSetByRoleName(role);
+        User user = userService.getUser(Integer.parseInt(id));
+        if (user == null) {
+            user = new User(username,passwordEncoder.encode(password),userRoleSet);
+            userService.saveUser(user, true);
+        } else {
+            user.setUsername(username);
+            user.setPassword(passwordEncoder.encode(password));
+            user.setRoleSet(userRoleSet);
+            user.setEnabled(true);
+            userService.saveUser(user, false);
+        }
+
         return "redirect:/list";
     }
 
@@ -69,6 +80,14 @@ public class UserController {
         return "redirect:/list";
     }
 
+    @GetMapping("updateForm")
+    public String showFormForUpdate(@RequestParam("userId") int theId,
+                                    Model theModel) {
+        User theUser = userService.getUser(theId);
+        theModel.addAttribute("user", theUser);
+        return "/user-form";
+    }
+
     @GetMapping ("/login")
     public ModelAndView authorize() {
 
@@ -83,11 +102,8 @@ public class UserController {
     @PostMapping("/register/process")
     public String processRegistration(@RequestParam("username") String username,
                                       @RequestParam("password") String password) {
-        Role userRole = roleService.findRoleByName("user");
-        Set<Role> roleSet = new HashSet<>();
-        roleSet.add(userRole);
-        User newUser = new User(username,passwordEncoder.encode(password),roleSet);
-        userService.saveUser(newUser);
+
+        userService.registerNewUser(username,password);
 
         return "redirect:/login";
     }

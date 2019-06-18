@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import userdb.security.MyAuthenticationFailureHandler;
 import userdb.security.SuccessHandler;
@@ -23,18 +24,25 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
     @Autowired
     private SuccessHandler successHandler;
 
-    @Autowired
-    private MyAuthenticationFailureHandler failureHandler;
+//    @Autowired
+//    private MyAuthenticationFailureHandler failureHandler;
 
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
-        //.passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService)
+        .passwordEncoder(passwordEncoder());
     }
 
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    @SuppressWarnings("deprecation")
+    public NoOpPasswordEncoder passwordEncoder() {
+
+        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
     }
 
 
@@ -44,8 +52,8 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/list").access("hasRole('admin')")
-                .antMatchers("/home").access("hasAnyRole('user','admin')")
+                .antMatchers("/list").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/home").access("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
                 .and()
                 .formLogin()
                 .loginPage("/login")

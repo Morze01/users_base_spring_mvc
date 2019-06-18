@@ -37,9 +37,9 @@
                     <c:forEach var="tempUser" items="${users}">
 
                         <!-- construct an "update" link with customer id -->
-                        <%--<c:url var="updateLink" value="/updateForm">--%>
-                            <%--<c:param name="userId" value="${tempUser.id}" />--%>
-                        <%--</c:url>--%>
+                        <c:url var="updateLink" value="/updateForm">
+                            <c:param name="userId" value="${tempUser.id}" />
+                        </c:url>
 
                         <%--<!-- construct an "delete" link with customer id -->--%>
                         <c:url var="deleteLink" value="/user/delete">
@@ -49,7 +49,7 @@
                         <tr>
                             <td>${tempUser.username}</td>
                             <td>${tempUser.password}</td>
-                            <td>${tempUser.roleSet}</td>
+                            <td><c:forEach var="role" items ="${tempUser.roleSet}">${role.name}</c:forEach></td>
 
                             <td>
                                 <!-- display the update link --> <a href="${updateLink}">Update</a>

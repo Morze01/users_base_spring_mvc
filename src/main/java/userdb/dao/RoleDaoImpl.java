@@ -7,6 +7,8 @@ import userdb.model.Role;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Repository
 @Transactional
@@ -50,5 +52,15 @@ public class RoleDaoImpl implements RoleDAO {
                 .stream()
                 .findAny()
                 .orElse(null);
+    }
+
+    @Override
+    public Set<Role> getRolSetByRoleName(String role) {
+        return entityManager
+                .createQuery("select u from Role u where u.name=:Name", Role.class)
+                .setParameter("Name",role)
+                .getResultList()
+                .stream()
+                .collect(Collectors.toSet());
     }
 }

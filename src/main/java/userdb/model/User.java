@@ -5,9 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 
 @Entity
@@ -32,7 +30,7 @@ public class User implements UserDetails {
     @JoinTable(name = "USERS_ROLE",
             joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")})
-    private Set<Role> roleSet = new HashSet<>();
+    private Set<Role> roleSet;
 
     public User() {
     }
@@ -64,24 +62,12 @@ public class User implements UserDetails {
         return true;
     }
 
-    public void addRoleToUser (Role role) {
-        if (!this.roleSet.contains(role)) {
-            this.roleSet.add(role);
-        }
-    }
-
-    public void removeRoleFromUser (Role role) {
-        if (this.roleSet.contains(role)) {
-            this.roleSet.remove(role);
-        }
-    }
-
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        //this.id = id;
     }
 
     public String getUsername() {
@@ -114,11 +100,6 @@ public class User implements UserDetails {
 
     public void setRoleSet(Set<Role> roleSet) {
         this.roleSet = roleSet;
-    }
-
-
-    public void updateUser(User newUser) {
-
     }
 
 

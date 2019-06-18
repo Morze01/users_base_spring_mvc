@@ -6,13 +6,16 @@ import userdb.model.User;
 import java.util.List;
 
 public interface UserService {
-    public List<User> getUsers();
+    List<User> getUsers();
 
-    public void saveUser(User user);
+    void saveUser(User user, boolean isNewUser);
 
-    public User getUser(int theId);
+    User getUser(int theId);
 
-    public void deleteUser(int theId);
+    void deleteUser(int theId);
 
-    public User findByUsername(String username);
+    User findByUsername(String username);
+
+    void registerNewUser (String username, String password);
+
 }

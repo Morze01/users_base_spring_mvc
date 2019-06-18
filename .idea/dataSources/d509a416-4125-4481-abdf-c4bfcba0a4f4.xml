@@ -968,49 +968,41 @@
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="243" parent="231" name="UK_3ddyy26rac144ay5qsat4xd0m">
-      <ColNames>PASSWORD</ColNames>
-      <Unique>1</Unique>
-    </index>
-    <index id="244" parent="231" name="UK_21q8fvry4wix31petp1awxsx9">
+    <index id="243" parent="231" name="UK_21q8fvry4wix31petp1awxsx9">
       <ColNames>USER_NAME</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="245" parent="231" name="PRIMARY">
+    <key id="244" parent="231" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="246" parent="231" name="UK_3ddyy26rac144ay5qsat4xd0m">
-      <ColNames>PASSWORD</ColNames>
-      <UnderlyingIndexName>UK_3ddyy26rac144ay5qsat4xd0m</UnderlyingIndexName>
-    </key>
-    <key id="247" parent="231" name="UK_21q8fvry4wix31petp1awxsx9">
+    <key id="245" parent="231" name="UK_21q8fvry4wix31petp1awxsx9">
       <ColNames>USER_NAME</ColNames>
       <UnderlyingIndexName>UK_21q8fvry4wix31petp1awxsx9</UnderlyingIndexName>
     </key>
-    <column id="248" parent="232" name="USER_ID">
+    <column id="246" parent="232" name="USER_ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="249" parent="232" name="ROLE_ID">
+    <column id="247" parent="232" name="ROLE_ID">
       <Position>2</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="250" parent="232" name="FKq0tknwm5e677cfq2n2wiumlh3">
+    <index id="248" parent="232" name="FKq0tknwm5e677cfq2n2wiumlh3">
       <ColNames>ROLE_ID</ColNames>
     </index>
-    <key id="251" parent="232" name="PRIMARY">
+    <key id="249" parent="232" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>USER_ID
 ROLE_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="252" parent="233" name="next_val">
+    <column id="250" parent="233" name="next_val">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>

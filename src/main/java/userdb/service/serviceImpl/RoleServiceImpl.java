@@ -7,6 +7,7 @@ import userdb.model.Role;
 import userdb.service.RoleService;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -40,5 +41,10 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role findRoleByName(String role) {
         return roleDAO.findeRoleByName(role);
+    }
+
+    @Override
+    public Set<Role> getRolSetByRoleName(String role) {
+        return roleDAO.getRolSetByRoleName(role);
     }
 }

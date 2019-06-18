@@ -23,18 +23,13 @@ public class UserDaoImpl implements UserDAO{
 
     @Override
     public void saveUser(User user) {
-        User persistUser = findByUsername(user.getUsername());
-        if (persistUser == null) {
-            entityManager.persist(user);
-        } else {
-            persistUser.updateUser(user);
-        }
+        entityManager.persist(user);
     }
 
     @Override
     @Transactional(readOnly = true)
     public User getUser(int theId) {
-        TypedQuery<User> query = entityManager.createQuery("select u from User u where u.ID=:ID", User.class);
+        TypedQuery<User> query = entityManager.createQuery("select u from User u where u.id=:ID", User.class);
         return query.setParameter("ID",theId)
                     .getResultList()
                     .stream()
@@ -50,8 +45,7 @@ public class UserDaoImpl implements UserDAO{
 
     @Override
     public void updateUser(User user) {
-        User persistUser = findByUsername(user.getUsername());
-        persistUser.updateUser(user);
+        entityManager.merge(user);
     }
 
     @Override

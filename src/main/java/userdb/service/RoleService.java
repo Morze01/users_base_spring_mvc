@@ -3,15 +3,18 @@ package userdb.service;
 import userdb.model.Role;
 
 import java.util.List;
+import java.util.Set;
 
 public interface RoleService {
-    public List<Role> getRoles();
+    List<Role> getRoles();
 
-    public void saveRole(Role role);
+    void saveRole(Role role);
 
-    public Role getRole(int theId);
+    Role getRole(int theId);
 
-    public void deleteRole(int theId);
+    void deleteRole(int theId);
 
-    public Role findRoleByName(String role);
+    Role findRoleByName(String role);
+
+    Set<Role> getRolSetByRoleName (String role);
 }
